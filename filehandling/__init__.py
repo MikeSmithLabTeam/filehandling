@@ -4,59 +4,209 @@ import os
 import glob
 
 
-def open_filename(initialdir='/'):
-    root = tkinter.Tk()
+def open_filename(
+        initialdir='/',
+        title="Select File",
+        filetypes=(("all files", "*.*"),),
+        parent=None):
+    """
+    Opens a filedialog to return a filename to open
+
+    Parameters
+    ----------
+    initialdir : str
+        The initial directory
+
+    title : str
+        Message box title
+
+    filetypes : tuple
+        Sequence of (label, pattern) tuples. The same label may occur
+        with several patterns. Use "*" as the pattern to indicate all files.
+
+    parent : widget
+        If using with tkinter gui provide the parent so focus is returned.
+
+    Returns
+    -------
+    filename : str
+        The selected filename
+    """
+    if parent is None:
+        root = tkinter.Tk()
     filename = filedialog.askopenfilename(
         initialdir=initialdir,
-        title="Select File",
-        filetypes=(("all files","*.*"),)
+        title=title,
+        filetypes=filetypes,
+        parent=parent
     )
+    if parent is None:
+        root.quit()
     return filename
 
 
-def save_filename(title=""):
-    root = tkinter.Tk()
+def save_filename(
+        initialdir='/',
+        title="Save File",
+        filetypes=(("all files", "*.*"),),
+        parent=None):
+    """
+    Opens a filedialog to save a file.
+
+    Parameters
+    ----------
+    initialdir : str
+        The initial directory
+
+    title : str
+        Message box title
+
+    filetypes : tuple
+        Sequence of (label, pattern) tuples. The same label may occur
+        with several patterns. Use "*" as the pattern to indicate all files.
+
+    parent : widget
+        If using with tkinter gui provide the parent so focus is returned.
+
+    Returns
+    -------
+    filename : str
+        The selected filename
+    """
+    if parent is None:
+        root = tkinter.Tk()
     filename = filedialog.asksaveasfilename(
         title=title,
+        initialdir=initialdir,
+        filetypes=filetypes,
+        parent=parent
     )
+    if parent is None:
+        root.quit()
     return filename
 
 
-def open_directory(initialdir='/'):
-    root = tkinter.Tk()
+def open_directory(
+        initialdir='/',
+        title="Select a directory",
+        parent=None):
+    """
+    Opens a filedialog to select a directory
+
+    Parameters
+    ----------
+    initialdir : str
+        The initial directory
+
+    title : str
+        Message box title
+
+    parent : widget
+        If using with tkinter gui provide the parent so focus is returned.
+
+    Returns
+    -------
+    filename : str
+        The selected directory
+    """
+    if parent is None:
+        root = tkinter.Tk()
     filename = filedialog.askdirectory(
         initialdir=initialdir,
-        title="Select directory"
+        title="Select directory",
+        parent=parent
     )
+    if parent is None:
+        root.quit()
     return filename
 
 
-def create_directory():
-    filepath = save_filename()
+def create_directory(
+        initialdir='/',
+        title="Create directory",
+        parent=None
+):
+    """
+    Opens a filedialog to create a directory
+
+    Parameters
+    ----------
+    initialdir : str
+        The initial directory
+
+    title : str
+        Message box title
+
+    parent : widget
+        If using with tkinter gui provide the parent so focus is returned.
+
+    Returns
+    -------
+    filename : str
+        The path of the created directory
+    """
+    if parent is None:
+        root = tkinter.Tk()
+    filepath = save_filename(
+        initialdir=initialdir,
+        title=title,
+        filetypes=(("No extension", "*"),),
+        parent=parent)
     filepath = remove_ext(filepath)
     os.mkdir(filepath)
+    if parent is None:
+        root.quit()
+    return filepath
 
 
 def remove_ext(filepath):
+    """Returns the file without extension from a filepath"""
     return os.path.splitext(filepath)[0]
 
 
 def remove_file(filepath):
+    """Returns the top directory from a filepath"""
     return os.path.split(filepath)[0]
 
 
 def get_ext(filepath):
+    """Returns the extension from a filepath"""
     return os.path.splitext(filepath)[1]
 
 
 def remove_path(filepath):
+    """Returns the name of the file from a filepath"""
     return os.path.split(filepath)[1]
 
 
-def get_directory_filenames(directory=None, reverse_sort=False, relative=False,
+def get_directory_filenames(directory, reverse_sort=False, relative=False,
                             extension=None):
-    if directory is None:
-        directory = open_directory()
+    """
+    Returns all the files from a directory.
+
+    Can set the filetype using extension.
+
+    Parameters
+    ----------
+    directory : str
+        Filepath pointing to the directory with the final /
+        Can use this with glob wildcards to use more complicated patterns.
+
+    reverse_sort : bool
+        If true files returns in reverse alphabetical order
+
+    relative : bool
+        If True files will be returned without the directory
+
+    extension : str
+        Extension filetype to be used as filter.
+
+    Returns
+    -------
+    files : list
+        List of all the files that match the pattern.
+
+    """
     if extension is not None:
         directory += '*'+extension
     files = glob.glob(directory)
@@ -69,9 +219,9 @@ def get_directory_filenames(directory=None, reverse_sort=False, relative=False,
 
 
 class BatchProcess:
-    def __init__(self, directory=None, extension=None, reverse_sort=False):
+    def __init__(self, directory, extension=None, reverse_sort=False):
         self.files = get_directory_filenames(
-            directory=directory,
+            directory,
             reverse_sort=False,
             relative=False,
             extension=False)
