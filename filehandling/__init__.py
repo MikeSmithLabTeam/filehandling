@@ -42,6 +42,7 @@ def open_filename(
     )
     if parent is None:
         root.quit()
+        root.destroy()
     return filename
 
 
@@ -83,6 +84,7 @@ def save_filename(
     )
     if parent is None:
         root.quit()
+        root.destroy()
     return filename
 
 
@@ -118,6 +120,7 @@ def open_directory(
     )
     if parent is None:
         root.quit()
+        root.destroy()
     return filename
 
 
@@ -156,6 +159,7 @@ def create_directory(
     os.mkdir(filepath)
     if parent is None:
         root.quit()
+        root.destroy()
     return filepath
 
 
