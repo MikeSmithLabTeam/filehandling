@@ -223,19 +223,19 @@ def get_directory_filenames(directory, reverse_sort=False, relative=False,
 
 
 class BatchProcess:
-    def __init__(self, directory, extension=None, reverse_sort=False):
+    def __init__(self, directory, extension=None, relative=False, reverse_sort=False):
         self.files = get_directory_filenames(
             directory,
-            reverse_sort=False,
-            relative=False,
-            extension=False)
+            reverse_sort=reverse_sort,
+            relative=relative,
+            extension=extension)
         self.num_files = len(self.files)
         self.current = 0
 
     def __iter__(self):
         return self
 
-    def __next(self):
+    def __next__(self):
         try:
             file = self.files[self.current]
             self.current += 1
