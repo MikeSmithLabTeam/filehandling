@@ -223,6 +223,31 @@ def get_directory_filenames(directory, reverse_sort=False, relative=False,
 
 
 class BatchProcess:
+    """
+    BatchProcess is a generator that enables you to easily iterate through a selection
+    of files in a directoy.
+
+    Attributes
+    ----------
+    num_files : int     The number of files in the selection
+    current : int       The index of the file currently pointed at
+    files : list        A list of strings of the filenames to be iterated over
+
+    Returns
+    -------
+    file : str          A filename
+
+    Examples
+    --------
+    directory is a path to a folder or expression for pattern matching.
+    eg. /Documents/Example/a*b?.txt
+    This returns files beginning in a with a b as the penultimate letter and file extension .txt
+
+    for filename in BatchProcess(directory):
+        print(filename)
+
+    """
+    
     def __init__(self, directory, extension=None, relative=False, reverse_sort=False):
         self.files = get_directory_filenames(
             directory,
