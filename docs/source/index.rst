@@ -3,9 +3,5 @@ Welcome to filehandling's documentation!
 ========================================
 
 .. toctree::
+   filehandling
 
-.. automodule:: filehandling
-    :members:
-    :undoc-members:
-    :inherited-members:
-    :show-inheritance:
