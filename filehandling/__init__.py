@@ -247,7 +247,7 @@ class BatchProcess:
         print(filename)
 
     """
-    
+
     def __init__(self, directory, extension=None, relative=False, reverse_sort=False):
         self.files = get_directory_filenames(
             directory,
