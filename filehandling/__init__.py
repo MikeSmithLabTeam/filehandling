@@ -232,11 +232,11 @@ def get_directory_filenames(directory, reverse_sort=False, smart_sort=None, rela
         directory += '*'+extension
     files = glob.glob(directory)
 
-    if smart_sort is not None:
+    if smart_sort is None:
+        files.sort(reverse=reverse_sort)
+    else:
         files = smart_sort(files)
-
-    files.sort(reverse=reverse_sort)
-
+    
     if relative:
         return [remove_path(f) for f in files]
     else:
