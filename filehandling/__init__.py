@@ -185,9 +185,16 @@ def remove_path(filepath):
 
 def smart_number_sort(filenames):
         filename_sort=[]
+
+        #Secondary sort criterion is the numerical value
         for filename in filenames:
-            filename_sort.append(float(''.join([i for i in filename if i in ['0','1','2','3','4','5','6','7','8','9']])))
-        sorted_filenames = [x for _,x in sorted(zip(filename_sort,filenames))] 
+            filename_sort.append(''.join([i for i in filename if i in ['0','1','2','3','4','5','6','7','8','9']]))
+        
+        #Sort by length of number first. This means 01 goes before 001.
+        len_filenames = [len(number) for number in filename_sort]
+
+        sorted_filenames = [x for _,_,x in sorted(zip(len_filenames, filename_sort,filenames))] 
+               
         return sorted_filenames
 
 
@@ -267,7 +274,7 @@ class BatchProcess:
             directory,
             reverse_sort=reverse_sort,
             relative=relative,
-            smart_sort=smart_sort
+            smart_sort=smart_sort,
             extension=extension)
         self.num_files = len(self.files)
         self.current = 0
@@ -282,3 +289,4 @@ class BatchProcess:
         except IndexError:
             raise StopIteration
         return file
+
