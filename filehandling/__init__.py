@@ -183,7 +183,15 @@ def remove_path(filepath):
     return os.path.split(filepath)[1]
 
 
-def get_directory_filenames(directory, reverse_sort=False, relative=False,
+def smart_number_sort(filenames):
+        filename_sort=[]
+        for filename in filenames:
+            filename_sort.append(float(''.join([i for i in filename if i in ['0','1','2','3','4','5','6','7','8','9']])))
+        sorted_filenames = [x for _,x in sorted(zip(filename_sort,filenames))] 
+        return sorted_filenames
+
+
+def get_directory_filenames(directory, reverse_sort=False, smart_sort=None, relative=False,
                             extension=None):
     """
     Returns all the files from a directory.
@@ -202,6 +210,8 @@ def get_directory_filenames(directory, reverse_sort=False, relative=False,
     relative : bool
         If True files will be returned without the directory
 
+    smart_sort : function_handle or None
+
     extension : str
         Extension filetype to be used as filter.
 
@@ -214,6 +224,10 @@ def get_directory_filenames(directory, reverse_sort=False, relative=False,
     if extension is not None:
         directory += '*'+extension
     files = glob.glob(directory)
+
+    if smart_sort is not None:
+        files = smart_sort(files)
+
     files.sort(reverse=reverse_sort)
 
     if relative:
@@ -248,11 +262,12 @@ class BatchProcess:
 
     """
 
-    def __init__(self, directory, extension=None, relative=False, reverse_sort=False):
+    def __init__(self, directory, extension=None, relative=False, smart_sort=None, reverse_sort=False):
         self.files = get_directory_filenames(
             directory,
             reverse_sort=reverse_sort,
             relative=relative,
+            smart_sort=smart_sort
             extension=extension)
         self.num_files = len(self.files)
         self.current = 0
