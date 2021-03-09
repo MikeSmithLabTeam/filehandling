@@ -4,7 +4,7 @@ import os
 import glob
 
 
-def open_filename(
+def get_filename(
         initialdir='/',
         title="Select File",
         filetypes=(("all files", "*.*"),),
@@ -44,6 +44,9 @@ def open_filename(
         root.quit()
         root.destroy()
     return filename
+
+
+open_filename = get_filename
 
 
 def save_filename(
@@ -88,7 +91,7 @@ def save_filename(
     return filename
 
 
-def open_directory(
+def get_directory(
         initialdir='/',
         title="Select a directory",
         parent=None):
@@ -122,6 +125,8 @@ def open_directory(
         root.quit()
         root.destroy()
     return filename
+
+open_directory = get_directory
 
 
 def create_directory(
@@ -198,7 +203,7 @@ def smart_number_sort(filenames):
         return sorted_filenames
 
 
-def get_directory_filenames(directory, reverse_sort=False, smart_sort=None, relative=False,
+def list_files(directory, reverse_sort=False, smart_sort=None, relative=False,
                             extension=None):
     """
     Returns all the files from a directory.
@@ -241,6 +246,14 @@ def get_directory_filenames(directory, reverse_sort=False, smart_sort=None, rela
         return [remove_path(f) for f in files]
     else:
         return files
+
+get_directory_filenames = list_files
+
+
+def get_filenames():
+    root = tkinter.Tk()
+    files = filedialog.askopenfilenames(parent=root, title='Choose files')
+    return files
 
 
 class BatchProcess:

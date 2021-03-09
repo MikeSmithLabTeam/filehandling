@@ -19,3 +19,7 @@ class TestOpenDirectory(TestCase):
     def test_open(self):
         direc = filehandling.open_directory()
         self.assertTrue(type(direc) == str)
+
+class TestOpenFileNames(TestCase):
+    def test(self):
+        files = filehandling.get_filenames()
