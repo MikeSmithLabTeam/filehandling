@@ -49,7 +49,7 @@ def get_filename(
 open_filename = get_filename
 
 
-def save_filename(
+def create_filename(
         initialdir='/',
         title="Save File",
         filetypes=(("all files", "*.*"),),
@@ -90,6 +90,7 @@ def save_filename(
         root.destroy()
     return filename
 
+save_filename = create_filename
 
 def get_directory(
         initialdir='/',
