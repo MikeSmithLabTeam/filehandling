@@ -48,6 +48,13 @@ def get_filename(
 
 open_filename = get_filename
 
+def get_name(filepath):
+    """Returns the filename of a path without the directory
+
+    /foo/bar/name.txt  -> name.txt
+    """
+    return os.path.split(filepath)
+
 
 def create_filename(
         initialdir='/',
