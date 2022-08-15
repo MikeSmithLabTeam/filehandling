@@ -8,3 +8,8 @@ https://filehandling.readthedocs.io/en/latest/
 To install run the following line in your environment
 
     pip install git+https://github.com/MikeSmithLabTeam/filehandling
+
+## github update
+To update run the following line in your environment
+
+    pip install --upgrade git+https://github.com/MikeSmithLabTeam/filehandling
