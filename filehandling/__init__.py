@@ -2,6 +2,7 @@ import tkinter
 from tkinter import filedialog
 import os
 import glob
+import time
 
 
 def open_filename(
@@ -50,6 +51,7 @@ def save_filename(
         initialdir='/',
         title="Save File",
         filetypes=(("all files", "*.*"),),
+        append_time=False,
         parent=None):
     """
     Opens a filedialog to save a file.
@@ -82,6 +84,9 @@ def save_filename(
         filetypes=filetypes,
         parent=parent
     )
+    if append_time==True:
+        filename=filename + datetime_stamp()
+
     if parent is None:
         root.quit()
         root.destroy()
@@ -290,3 +295,9 @@ class BatchProcess:
             raise StopIteration
         return file
 
+def datetime_stamp(format_string = "%Y%m%d_%H%M%S"):
+    """
+    Get string for current date and time
+    """
+    now=time.gmtime()
+    return time.strftime(format_string)
