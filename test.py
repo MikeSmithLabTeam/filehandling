@@ -13,7 +13,7 @@ setuptools.setup(
     packages=setuptools.find_packages(
         exclude=('tests', 'docs')
     ),
-    url='https://github.com/MikeSmithLabTeam/labvision',
+    url='https://github.com/MikeSmithLabTeam/filehandling',
     test_suite='nose.collector',
     tests_require=['nose'],
 )
