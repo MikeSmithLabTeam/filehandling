@@ -8,9 +8,9 @@ build-backend = "setuptools.build_meta"
 name = "filehandling"
 version = "0.1.1"
 dependencies = [
-sphinx = "^4.0"
-sphinx-autobuild = "^2021.3.14"
-sphinx-rtd-theme = "^1.2.0"
+"sphinx = ^4.0"
+"sphinx-autobuild = ^2021.3.14"
+"sphinx-rtd-theme = ^1.2.0"
 ]
 
 [tool.pytest.ini_options]
