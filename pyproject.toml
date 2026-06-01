@@ -1,19 +1,27 @@
-# This is a file that will install dependencies etc.
-
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["uv_build<0.12"]
+build-backend = "uv_build"
 
 [project]
 name = "filehandling"
 version = "0.1.1"
-dependencies = [
-"sphinx>=4.0",
-"sphinx-autobuild>=2021.3.14",
-"sphinx-rtd-theme>=1.2.0"
+requires-python = ">=3.8"
+description = "Basic file handling utilities that simplify filename, directory, and batch file operations."
+readme = "README.md"
+license = { file = "LICENSE" }
+license-expression = "MIT"
+authors = [
+    { name = "Mike Smith" },
 ]
+keywords = ["file handling", "PyQt6", "filesystem", "batch processing"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = ["PyQt6>=6.0", "pytest"]
+optional-dependencies = { docs = ["sphinx>=4.0", "sphinx-autobuild>=2021.3.14", "sphinx-rtd-theme>=1.2.0"]}
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-
 
