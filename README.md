@@ -5,21 +5,14 @@ Repository for basic file handling tasks
 https://filehandling.readthedocs.io/en/latest/
 
 ## github installation
-To install run the following line in your environment
+To install with uv
 
-    pip install git+https://github.com/MikeSmithLabTeam/filehandling
+    uv pip install git+https://github.com/MikeSmithLabTeam/filehandling
 
-This package now uses PyQt6 for file and directory dialogs instead of tkinter.
+or add to your pyproject.toml 
 
-## github update
-To update run the following line in your environment
+    dependencies = [
+        "filehandling @ git+https://github.com/MikeSmithLabTeam/filehandling",
+    ]
 
-    pip install --upgrade git+https://github.com/MikeSmithLabTeam/filehandling
-
-## UV packaging
-This project is configured as a UV project using `pyproject.toml` and the `uv` build backend.
-
-Install `uv` and build the distribution with:
-
-    python -m pip install uv
-    uv build
+This package now uses PyQt6
